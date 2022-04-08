@@ -12,12 +12,7 @@ def predict():
     elif request.method == 'POST':
         features = dict(request.form).values()
         model = joblib.load("linreg_model.pkl")
-        result = abs(model.predict(data[['Height', 'Weight']]).round())
-        gender = {
-            '0': 'Male',
-            '1': 'Female'
-        }
-        result = gender[str(result[0])]
+        result = model.predict(features)
         return render_template('view.html', result=result)
     else:
         return "Unsupported Request Method"
