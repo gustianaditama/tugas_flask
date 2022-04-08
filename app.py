@@ -11,7 +11,6 @@ def predict():
         return render_template("view.html")
     elif request.method == 'POST':
         features = dict(request.form).values()
-        features = np.array([float(x) for x in iris_features])
         model = joblib.load("linreg_model.pkl")
         result = abs(model.predict(data[['Height', 'Weight']]).round())
         gender = {
