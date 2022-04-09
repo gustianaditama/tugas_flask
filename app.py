@@ -11,9 +11,11 @@ def predict():
         return render_template("view.html")
     elif request.method == 'POST':
         features = dict(request.form).values()
-        model = joblib.load("model/linreg_model.pkl")
+        features = np.array([float(x) for x in features])
+        model, std_scaler = joblib.load("model/linreg_model.pkl")
+        features = std_scaler.transform([features])
         result = model.predict(features)
-        return render_template('view.html', result=result)
+        return render_template('view.html', result=result[0][0])
     else:
         return "Unsupported Request Method"
 
