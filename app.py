@@ -11,7 +11,7 @@ def predict():
         return render_template("view.html")
     elif request.method == 'POST':
         features = dict(request.form).values()
-        model = joblib.load("linreg_model.pkl")
+        model = joblib.load("model/linreg_model.pkl")
         result = model.predict(features)
         return render_template('view.html', result=result)
     else:
